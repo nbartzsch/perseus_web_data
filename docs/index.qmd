@@ -5,16 +5,16 @@
 # Only edit below this line
 #############################################################################
 #Postition of Needle Valve O2 IGN
-valve_O2_pos <- 9    #Turns from close
+valve_O2_pos <- 2.5    #Turns from close
 
 #Postition of Neelde valve H2 IGN
-valve_H2_pos <- 9  #Turns from close
+valve_H2_pos <- 0.8  #Turns from close
 
 #Pressure on the O2 pressure reducer
-O2_p_red <- 14.9  #in bar
+O2_p_red <- 6  #in bar
 
 #Pressure on H2 pressure reducer
-H2_p_red <- 15.1  #in bar
+H2_p_red <- 6  #in bar
 #############################################################################
 # Only edit above this line
 ```
@@ -47,6 +47,7 @@ library(tidyverse)
 library(gt)
 library(readr)
 library(here)
+library(plotly)
 ```
 
 ```{r}
@@ -90,4 +91,24 @@ table_geom |>
     H2_pre = ("Pressure on H2 PRV")
   ) |> 
   cols_align(align = "center")
+```
+
+### Data from Firing
+
+The graph below shows the response from the Kistler sensor in the pre-detonator. The response is given in pC over time in seconds. The plot below is interactive, so the axes can be re scaled and you can zoom in.
+
+The data shown below was sampled at 500kHz.
+
+```{r}
+plot_data <-  processed_data_sens |>
+  filter(s <= 1.3)|>
+  filter(s >= 0.3)
+
+p <- ggplot(plot_data, aes(x = s, y = pC)) +
+  geom_path() +
+  theme_minimal()+
+  labs(x = "Time [s]", y = "Sensor Response [pC]")
+
+interactive_plot <- ggplotly(p)
+interactive_plot
 ```
