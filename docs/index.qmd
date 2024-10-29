@@ -1,0 +1,93 @@
+```{r}
+#| output: false
+#| echo: false
+
+# Only edit below this line
+#############################################################################
+#Postition of Needle Valve O2 IGN
+valve_O2_pos <- 9    #Turns from close
+
+#Postition of Neelde valve H2 IGN
+valve_H2_pos <- 9  #Turns from close
+
+#Pressure on the O2 pressure reducer
+O2_p_red <- 14.9  #in bar
+
+#Pressure on H2 pressure reducer
+H2_p_red <- 15.1  #in bar
+#############################################################################
+# Only edit above this line
+```
+
+---
+title: "PERSEUS Pre-Detonator Firing "
+date: 26.10.2024
+author:
+  - name: PERSEUS
+    email: nbartzsch@ethz.ch
+    affiliation: 
+      - name: ARIS
+        url: https://aris-space.ch/perseus-2024/
+editor: visual
+format:
+  html:
+    toc: true
+execute:
+  warning: false
+  eval: true
+  echo: false
+---
+
+```{r}
+#| output: false
+
+##Load libraries
+
+library(tidyverse)
+library(gt)
+library(readr)
+library(here)
+```
+
+```{r}
+#| output: false
+#| echo: false
+
+# Only edit below this line
+#############################################################################
+# Import data
+processed_data_sens <- read_csv(here("data", "processed_data", "processed_data_sens.csv"))
+
+#############################################################################
+# Only edit above this line
+```
+
+### General Information
+
+The goal of this webpage is to show the data from the Kistler sensors of firings in a more interactive way. The large data sets and very fast phenomena we want to analize are hard to visualize in static graphs.
+
+### Setup Configuration
+
+This section contains all information about the setup of the system. This helps identifying and tracing back the effects of different configurations.
+
+```{r}
+
+#Create df with talbe data
+table_geom <- data.frame(
+  O2_pos = paste(valve_O2_pos, "[t.f.c]"),
+  O2_pre = paste(O2_p_red, "[bar]"),
+  H2_pos = paste(valve_H2_pos, "[t.f.c]"),
+  H2_pre = paste(H2_p_red, "[bar]")
+)
+
+#Create table
+table_geom |> 
+  gt() |> 
+  cols_label(
+    O2_pos = ("NV O2 IGN"),
+    O2_pre = ("Pressure on O2 PRV"),
+    H2_pos = ("NV H2 IGN"),
+    H2_pre = ("Pressure on H2 PRV")
+  ) |> 
+  cols_align(align = "center")
+```
