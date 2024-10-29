@@ -1,0 +1,8 @@
+# Ignore all csv
+*.csv
+
+#Ignore all pdf
+*.pdf
+
+#Ignore all png
+*.png
