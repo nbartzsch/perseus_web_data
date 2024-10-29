@@ -3,6 +3,9 @@
 .RData
 .Ruserdata
 
+#Ignore all csv
+*.csv
+
 #Ignore all pdf
 *.pdf
 
