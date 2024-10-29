@@ -1,8 +1,11 @@
-# Ignore all csv
-*.csv
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
 
 #Ignore all pdf
 *.pdf
 
 #Ignore all png
 *.png
+
